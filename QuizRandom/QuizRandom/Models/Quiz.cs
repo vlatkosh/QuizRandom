@@ -1,5 +1,6 @@
 ﻿using SQLite;
 using System.ComponentModel;
+using System;
 
 /*
  *  Unfortunately, there's no clean way storing quiz questions in a SQLIte database,
@@ -13,14 +14,16 @@ namespace QuizRandom.Models
         // Constructors
         public Quiz()
         {
-            BestResult = new QuizResult() { CorrectCount = -1 };
+            BestResultCount = -1;
+            BestResultDate = DateTime.Now;
             JSONData = string.Empty;
             QuestionCount = 0;
         }
 
         public Quiz(ref string data, int questionCount)
         {
-            BestResult = new QuizResult { CorrectCount = -1 };
+            BestResultCount = -1;
+            BestResultDate = DateTime.Now;
             JSONData = data;
             QuestionCount = questionCount;
         }
@@ -30,6 +33,7 @@ namespace QuizRandom.Models
         public int ID { get; set; }
         public string JSONData { get; set; }
         public int QuestionCount { get; set; }
-        public QuizResult BestResult { get; set; }
+        public int BestResultCount { get; set; }
+        public DateTime BestResultDate { get; set; }
     }
 }

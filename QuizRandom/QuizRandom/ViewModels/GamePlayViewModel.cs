@@ -18,17 +18,21 @@ namespace QuizRandom.ViewModels
         {
             Debug.WriteLine($"{this.GetType()} constructor");
 
+            quizLoaded = false;
+
             InterpretAnswerCommand = new Command(() => InterpretAnswer());
         }
 
         // Private members
+        private bool quizLoaded;
+        private Quiz currentQuiz;
+
+        private List<QuizQuestion> questions;
         private List<int> questionOrder;
         private int lastQuestionLoaded;
 
         // Public properties
-        public Quiz CurrentQuiz { get; private set; }
-        public List<QuizQuestion> Questions { get; private set; }
-        public QuizResult CurrentAttempt { get; private set; }
+        public int CorrectCount { get; private set; }
         public int QuestionNumber { get; private set; }
         public List<string> Answers { get; private set; }
         public string SelectedAnswer { get; set; }
@@ -37,11 +41,11 @@ namespace QuizRandom.ViewModels
         {
             get
             {
-                if (QuestionNumber >= 0 && QuestionNumber < Questions.Count)
+                if (!quizLoaded || QuestionNumber < 0 || QuestionNumber > questions.Count)
                 {
-                    return Questions[questionOrder[QuestionNumber]].Question;
+                    return string.Empty;
                 }
-                return string.Empty;
+                return questions[questionOrder[QuestionNumber]].Question;
             }
         }
 
@@ -51,34 +55,53 @@ namespace QuizRandom.ViewModels
         // Methods
         public async void LoadQuiz(string itemId)
         {
+            if (quizLoaded)
+            {
+                return;
+            }
+
             int id = Convert.ToInt32(itemId);
-            CurrentQuiz = await App.Database.GetQuizAsync(id);
+            currentQuiz = await App.Database.GetQuizAsync(id);
 
-            JSONRootObject rootObject = JsonConvert.DeserializeObject<JSONRootObject>(CurrentQuiz.JSONData);
-            Questions = rootObject.Results;
+            JSONRootObject rootObject = JsonConvert.DeserializeObject<JSONRootObject>(currentQuiz.JSONData);
+            questions = rootObject.Results;
 
-            CurrentAttempt = new QuizResult();
-            
+            questionOrder = new List<int>(questions.Count);
+            for (int i = 0; i < questions.Count; i++)
+            {
+                questionOrder.Add(i);
+            }
             Random rnd = new Random();
-            questionOrder = new List<int>(Questions.Count).OrderBy(_ => rnd.Next()).ToList();
+            questionOrder = questionOrder.OrderBy(i => rnd.Next()).ToList();
+
+            lastQuestionLoaded = -1;
+
+            CorrectCount = 0;
+            OnPropertyChanged(nameof(CorrectCount));
 
             QuestionNumber = 0;
             OnPropertyChanged(nameof(QuestionNumber));
 
-            lastQuestionLoaded = -1;
+            quizLoaded = true;
+
+            Debug.WriteLine("GamePlayVM: Loaded quiz");
+
+            await LoadQuestion();
         }
 
-        public async void LoadQuestion()
+        public async Task LoadQuestion()
         {
-            // Called by GamePlayPage.xaml.cs when OnAppearing
-            if (QuestionNumber == Questions.Count)
+            if (!quizLoaded)
+            {
+                return;
+            }
+            if (QuestionNumber == questions.Count)
             {
                 // finished, go to end page
-                string resultSerialized = JsonConvert.SerializeObject(CurrentAttempt);
                 await Shell.Current.GoToAsync(
                     $"{nameof(GameEndPage)}" +
-                    $"?{nameof(GameEndPage.QuizId)}={CurrentQuiz.ID}" +
-                    $"&{nameof(GameEndPage.Result)}={resultSerialized}"
+                    $"?{nameof(GameEndPage.QuizId)}={currentQuiz.ID}" +
+                    $"&{nameof(GameEndPage.CorrectCount)}={CorrectCount}"
                 );
                 return;
             }
@@ -93,8 +116,8 @@ namespace QuizRandom.ViewModels
 
             // list the answers in a random order
             Random rnd = new Random();
-            Answers = new List<string>() { Questions[questionOrder[QuestionNumber]].CorrectAnswer };
-            Answers.AddRange(Questions[questionOrder[QuestionNumber]].IncorrectAnswers);
+            Answers = new List<string>() { questions[questionOrder[QuestionNumber]].CorrectAnswer };
+            Answers.AddRange(questions[questionOrder[QuestionNumber]].IncorrectAnswers);
             Answers = Answers.OrderBy(_ => rnd.Next()).ToList();
             OnPropertyChanged(nameof(Answers));
 
@@ -104,13 +127,19 @@ namespace QuizRandom.ViewModels
             lastQuestionLoaded = QuestionNumber;
         }
 
-        public void InterpretAnswer()
+        public async void InterpretAnswer()
         {
-            if (SelectedAnswer == Questions[questionOrder[QuestionNumber]].CorrectAnswer)
+            if (SelectedAnswer == null)
+            {
+                // For some reason the command is fired twice, so this handles that
+                return;
+            }
+            if (SelectedAnswer == questions[questionOrder[QuestionNumber]].CorrectAnswer)
             {
                 // correct!
                 //CurrentAttempt.RegisterCorrect();
-                CurrentAttempt.CorrectCount += 1;
+                CorrectCount += 1;
+                OnPropertyChanged(nameof(CorrectCount));
             }
             else
             {
@@ -121,7 +150,7 @@ namespace QuizRandom.ViewModels
             QuestionNumber += 1;
             OnPropertyChanged(nameof(QuestionNumber));
 
-            LoadQuestion();
+            await LoadQuestion();
         }
 
     }

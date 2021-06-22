@@ -18,5 +18,6 @@ namespace QuizRandom.Views
         {
             set => ((QuizInfoViewModel)BindingContext).LoadQuiz(value);
         }
+
     }
 }

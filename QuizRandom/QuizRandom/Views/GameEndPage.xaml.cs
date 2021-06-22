@@ -12,7 +12,7 @@ namespace QuizRandom.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
     [QueryProperty(nameof(QuizId), nameof(QuizId))]
-    [QueryProperty(nameof(Result), nameof(Result))]
+    [QueryProperty(nameof(CorrectCount), nameof(CorrectCount))]
     public partial class GameEndPage : ContentPage
     {
         public GameEndPage()
@@ -26,9 +26,9 @@ namespace QuizRandom.Views
             set => ((GameEndViewModel)BindingContext).LoadQuiz(value);
         }
 
-        public string Result
+        public string CorrectCount
         {
-            set => ((GameEndViewModel)BindingContext).LoadResult(value);
+            set => ((GameEndViewModel)BindingContext).CorrectCount = Convert.ToInt32(value);
         }
 
     }

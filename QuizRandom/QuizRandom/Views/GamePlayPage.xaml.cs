@@ -20,11 +20,11 @@ namespace QuizRandom.Views
             set => ((GamePlayViewModel)BindingContext).LoadQuiz(value);
         }
 
-        protected override void OnAppearing()
-        {
-            base.OnAppearing();
-            Debug.WriteLine("GamePlayPage OnAppearing");
-            ((GamePlayViewModel)BindingContext).LoadQuestion();
-        }
+        //protected override async void OnAppearing()
+        //{
+        //    base.OnAppearing();
+        //    Debug.WriteLine("GamePlayPage OnAppearing");
+        //    await ((GamePlayViewModel)BindingContext).LoadQuestion();
+        //}
     }
 }
