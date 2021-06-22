@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:QuizRandom.ViewModels"
+             x:Class="QuizRandom.Views.MainPage">
+    <ContentPage.BindingContext>
+        <local:MainViewModel />
+    </ContentPage.BindingContext>
+    <ContentPage.Resources>
+        
+    </ContentPage.Resources>
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="New Quiz"
+                     Command="{Binding GoToQuizGenPageCommand}" />
+    </ContentPage.ToolbarItems>
+    <ContentPage.Content>
+        <Grid>
+            <CollectionView x:Name="collectionView"
+                            Margin="{StaticResource PageMargin}"
+                            SelectionMode="Single"
+                            ItemsSource="{Binding Quizzes}"
+                            SelectedItem="{Binding SelectedQuiz}"
+                            SelectionChangedCommand="{Binding GoToQuizInfoPageCommand}">
+                <CollectionView.ItemsLayout>
+                    <LinearItemsLayout Orientation="Vertical"
+                                       ItemSpacing="10" />
+                </CollectionView.ItemsLayout>
+                <!-- Define the appearance of each item in the list -->
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <StackLayout>
+                            <Label Text="{Binding ID, StringFormat='Quiz {0}'}" />
+                            <Label Text="{Binding JSONData}" />
+                        </StackLayout>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

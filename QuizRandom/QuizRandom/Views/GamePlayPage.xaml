@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:QuizRandom.ViewModels"
+             x:Class="QuizRandom.Views.GamePlayPage">
+    <ContentPage.BindingContext>
+        <local:GamePlayViewModel />
+    </ContentPage.BindingContext>
+    <ContentPage.Content>
+        <StackLayout Margin="{StaticResource PageMargin}">
+            <Label Text="{Binding QuestionNumber, StringFormat='Question number {0}'}" />
+            <Label Text="{Binding Source=CurrentAttempt, Path=CorrectCount, StringFormat='Correct so far: {0}'}" />
+            <Label Text="{Binding QuestionText}" />
+            <CollectionView x:Name="answerView"
+                            SelectionMode="Single"
+                            ItemsSource="{Binding Answers}"
+                            SelectedItem="{Binding SelectedAnswer}"
+                            SelectionChangedCommand="{Binding InterpretAnswerCommand}">
+                <CollectionView.ItemsLayout>
+                    <LinearItemsLayout Orientation="Vertical"
+                                       ItemSpacing="10" />
+                </CollectionView.ItemsLayout>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Label Text="{Binding}" />
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

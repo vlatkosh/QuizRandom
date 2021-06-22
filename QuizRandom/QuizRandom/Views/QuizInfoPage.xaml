@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:QuizRandom.ViewModels"
+             x:Class="QuizRandom.Views.QuizInfoPage">
+    <ContentPage.BindingContext>
+        <local:QuizInfoViewModel />
+    </ContentPage.BindingContext>
+    <ContentPage.Content>
+        <StackLayout Margin="{StaticResource PageMargin}">
+            <Label Text="{Binding QuizID, StringFormat='Quiz ID: {0}'}" />
+            <Label Text="{Binding BestResultInfo}" />
+            <Button Text="Play"
+                    Command="{Binding PlayQuizCommand}" />
+            <Button Text="Delete"
+                    Command="{Binding DeleteQuizCommand}" />
+        </StackLayout>
+    </ContentPage.Content>
+    
+</ContentPage>

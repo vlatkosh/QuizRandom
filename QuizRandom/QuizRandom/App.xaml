@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Application xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="QuizRandom.App">
+    <!--
+        Define global resources and styles here, that apply to all pages in your app.
+    -->
+    <Application.Resources>
+        <ResourceDictionary>
+            <Thickness x:Key="PageMargin" Left="20" Top="20" Right="20" Bottom="20" />
+            <!-- Colors -->
+            <Color x:Key="AppPrimaryColor">#2196F3</Color>
+            <Color x:Key="AppBackgroundColor">White</Color>
+            <Color x:Key="PrimaryColor">Black</Color>
+            <Color x:Key="SecondaryColor">AliceBlue</Color>
+            <Color x:Key="TertiaryColor">Silver</Color>
+            <!-- Implicit styles -->
+            <Style TargetType="Button">
+                <Setter Property="TextColor"
+                        Value="{StaticResource AppBackgroundColor}" />
+                <Setter Property="VisualStateManager.VisualStateGroups">
+                    <VisualStateGroupList>
+                        <VisualStateGroup x:Name="CommonStates">
+                            <VisualState x:Name="Normal">
+                                <VisualState.Setters>
+                                    <Setter Property="BackgroundColor"
+                                            Value="{StaticResource AppPrimaryColor}" />
+                                </VisualState.Setters>
+                            </VisualState>
+                            <VisualState x:Name="Disabled">
+                                <VisualState.Setters>
+                                    <Setter Property="BackgroundColor"
+                                            Value="#332196F3" />
+                                </VisualState.Setters>
+                            </VisualState>
+                        </VisualStateGroup>
+                    </VisualStateGroupList>
+                </Setter>
+            </Style>
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>
