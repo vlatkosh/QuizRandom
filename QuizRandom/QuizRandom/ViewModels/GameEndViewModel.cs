@@ -6,8 +6,8 @@ using System.Windows.Input;
 using Xamarin.Forms;
 
 /*
- * display the current QuizResult
- * 
+ *  TODO:
+ *  There's a sys seg fault here?
  */
 
 namespace QuizRandom.ViewModels
@@ -23,11 +23,25 @@ namespace QuizRandom.ViewModels
             {
                 await Shell.Current.GoToAsync("../..");
             });
+
+            CorrectCount = -1;
         }
 
         // Public properties
         public Quiz CurrentQuiz { get; private set; }
-        public QuizResult Result { get; private set; }
+
+        public int CorrectCount
+        {
+            get => CorrectCount;
+            set
+            {
+                CorrectCount = value;
+                if (!(CurrentQuiz is null))
+                {
+                    OnEverythingLoaded();
+                }
+            }
+        }
 
         public string ResultInfo
         {
@@ -35,10 +49,10 @@ namespace QuizRandom.ViewModels
             {
                 string s = string.Format(
                     "You answered {0} questions correctly out of {1} total.\n",
-                    Result.CorrectCount,
+                    CorrectCount,
                     CurrentQuiz.QuestionCount
                 );
-                if (Result.CorrectCount > CurrentQuiz.BestResult.CorrectCount)
+                if (CorrectCount > CurrentQuiz.BestResultCount)
                 {
                     s += "Congratulations! You have a new best result.";
                 }
@@ -59,17 +73,7 @@ namespace QuizRandom.ViewModels
             int id = Convert.ToInt32(QuizId);
             CurrentQuiz = await App.Database.GetQuizAsync(id);
 
-            if (!(Result is null))
-            {
-                OnEverythingLoaded();
-            }
-        }
-
-        public void LoadResult(string data)
-        {
-            Result = JsonConvert.DeserializeObject<QuizResult>(data);
-        
-            if (!(CurrentQuiz is null))
+            if (CorrectCount != -1)
             {
                 OnEverythingLoaded();
             }
@@ -81,9 +85,10 @@ namespace QuizRandom.ViewModels
             OnPropertyChanged(ResultInfo);
 
             // save to database if better
-            if (Result.CorrectCount > CurrentQuiz.BestResult.CorrectCount)
+            if (CorrectCount > CurrentQuiz.BestResultCount)
             {
-                CurrentQuiz.BestResult = Result;
+                CurrentQuiz.BestResultCount = CorrectCount;
+                CurrentQuiz.BestResultDate = DateTime.Now;
                 await App.Database.SaveQuizAsync(CurrentQuiz);
             }
         }

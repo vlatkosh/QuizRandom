@@ -50,7 +50,11 @@ namespace QuizRandom.ViewModels
         {
             get
             {
-                if (CurrentQuiz.BestResult.CorrectCount == -1)
+                if (CurrentQuiz is null)
+                {
+                    return string.Empty;
+                }
+                else if (CurrentQuiz.BestResultCount == -1)
                 {
                     return "Play the quiz and see how well you do!";
                 }
@@ -58,9 +62,9 @@ namespace QuizRandom.ViewModels
                 {
                     return string.Format(
                         "Best attempt was {0} questions out of {1}, done at {2}",
-                        CurrentQuiz.BestResult.CorrectCount,
+                        CurrentQuiz.BestResultCount,
                         CurrentQuiz.QuestionCount,
-                        CurrentQuiz.BestResult.Date
+                        CurrentQuiz.BestResultDate
                     );
                 }
             }

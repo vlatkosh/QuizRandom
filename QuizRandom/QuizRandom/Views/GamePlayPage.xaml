@@ -9,7 +9,7 @@
     <ContentPage.Content>
         <StackLayout Margin="{StaticResource PageMargin}">
             <Label Text="{Binding QuestionNumber, StringFormat='Question number {0}'}" />
-            <Label Text="{Binding Source=CurrentAttempt, Path=CorrectCount, StringFormat='Correct so far: {0}'}" />
+            <Label Text="{Binding CorrectCount, StringFormat='Correct so far: {0}'}" />
             <Label Text="{Binding QuestionText}" />
             <CollectionView x:Name="answerView"
                             SelectionMode="Single"
@@ -18,7 +18,7 @@
                             SelectionChangedCommand="{Binding InterpretAnswerCommand}">
                 <CollectionView.ItemsLayout>
                     <LinearItemsLayout Orientation="Vertical"
-                                       ItemSpacing="10" />
+                                       ItemSpacing="30" />
                 </CollectionView.ItemsLayout>
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
