@@ -98,6 +98,12 @@ namespace QuizRandom.ViewModels
             if (QuestionNumber == questions.Count)
             {
                 // finished, go to end page
+
+                /*
+                 *  The segfault seems to happen as soon as the object of the next page instantiated,
+                 *  or right after the following function is called.
+                 */
+
                 await Shell.Current.GoToAsync(
                     $"{nameof(GameEndPage)}" +
                     $"?{nameof(GameEndPage.QuizId)}={currentQuiz.ID}" +
@@ -131,7 +137,7 @@ namespace QuizRandom.ViewModels
         {
             if (SelectedAnswer == null)
             {
-                // For some reason the command is fired twice, so this handles that
+                // For some reason the command is fired more than once per tap, so this handles that
                 return;
             }
             if (SelectedAnswer == questions[questionOrder[QuestionNumber]].CorrectAnswer)

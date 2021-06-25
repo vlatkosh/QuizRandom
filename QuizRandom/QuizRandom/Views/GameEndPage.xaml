@@ -8,7 +8,10 @@
     </ContentPage.BindingContext>
     <ContentPage.Content>
         <StackLayout Margin="{StaticResource PageMargin}">
-            <Label Text="{Binding ResultInfo}" />
+            <!--<Label Text="{Binding ResultInfo}" />
+            <Button Text="Save result"
+                    Command="{Binding SaveResultCommand}"
+                    IsEnabled="{Binding SaveResultValid}" />-->
             <Button Text="Go back"
                     Command="{Binding GoBackCommand}" />
         </StackLayout>
