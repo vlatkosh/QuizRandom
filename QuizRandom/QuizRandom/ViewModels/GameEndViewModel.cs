@@ -4,11 +4,6 @@ using System.Diagnostics;
 using System.Windows.Input;
 using Xamarin.Forms;
 
-/*
- *  TODO:
- *  There's a sys seg fault here?
- */
-
 namespace QuizRandom.ViewModels
 {
     public class GameEndViewModel : MyBindableObject
