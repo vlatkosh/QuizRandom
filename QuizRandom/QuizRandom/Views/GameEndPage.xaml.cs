@@ -1,12 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using QuizRandom.ViewModels;
+using System;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
-using QuizRandom.ViewModels;
-using QuizRandom.Models;
+
+/*
+ *  The segfault seems to happen as soon as the object of this instantiated,
+ *  or right after Shell.Current.GoToAsync(this page) is called.
+ */
 
 namespace QuizRandom.Views
 {

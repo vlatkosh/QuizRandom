@@ -1,14 +1,8 @@
-﻿using Newtonsoft.Json;
-using QuizRandom.Models;
+﻿using QuizRandom.Models;
 using System;
 using System.Diagnostics;
 using System.Windows.Input;
 using Xamarin.Forms;
-
-/*
- *  TODO:
- *  There's a sys seg fault here?
- */
 
 namespace QuizRandom.ViewModels
 {
@@ -19,40 +13,67 @@ namespace QuizRandom.ViewModels
         {
             Debug.WriteLine($"{this.GetType()} constructor");
 
+            SaveResultCommand = new Command(async () =>
+            {
+                // save to database if better
+                currentQuiz.BestResultCount = CorrectCount;
+                currentQuiz.BestResultDate = DateTime.Now;
+                await App.Database.SaveQuizAsync(currentQuiz);
+            });
+
             GoBackCommand = new Command(async () =>
             {
+                // go to quiz info page
                 await Shell.Current.GoToAsync("../..");
             });
 
+            currentQuiz = null;
             CorrectCount = -1;
+            SaveResultValid = false;
         }
 
-        // Public properties
-        public Quiz CurrentQuiz { get; private set; }
+        // Private members
+        private Quiz currentQuiz;
 
+        // Public properties
         public int CorrectCount
         {
             get => CorrectCount;
             set
             {
                 CorrectCount = value;
-                if (!(CurrentQuiz is null))
-                {
-                    OnEverythingLoaded();
-                }
+                OnPropertyChanged(nameof(SaveResultValid));
+                OnPropertyChanged(nameof(ResultInfo));
             }
+        }
+
+        public bool SaveResultValid
+        {
+            get
+            {
+                if (CorrectCount == -1 || currentQuiz is null)
+                {
+                    return false;
+                }
+                return CorrectCount > currentQuiz.BestResultCount;
+            }
+            private set => SaveResultValid = value;
         }
 
         public string ResultInfo
         {
             get
             {
+                if (CorrectCount == -1 || currentQuiz is null)
+                {
+                    return string.Empty;
+                }
                 string s = string.Format(
                     "You answered {0} questions correctly out of {1} total.\n",
                     CorrectCount,
-                    CurrentQuiz.QuestionCount
+                    currentQuiz.QuestionCount
                 );
-                if (CorrectCount > CurrentQuiz.BestResultCount)
+                if (SaveResultValid)
                 {
                     s += "Congratulations! You have a new best result.";
                 }
@@ -65,32 +86,16 @@ namespace QuizRandom.ViewModels
         }
 
         // ICommand implementations
-        public ICommand GoBackCommand { get; protected set; }
+        public ICommand SaveResultCommand { get; private set; }
+        public ICommand GoBackCommand { get; private set; }
 
         // Methods
         public async void LoadQuiz(string QuizId)
         {
             int id = Convert.ToInt32(QuizId);
-            CurrentQuiz = await App.Database.GetQuizAsync(id);
-
-            if (CorrectCount != -1)
-            {
-                OnEverythingLoaded();
-            }
-        }
-
-        private async void OnEverythingLoaded()
-        {
-            // notify property changes
-            OnPropertyChanged(ResultInfo);
-
-            // save to database if better
-            if (CorrectCount > CurrentQuiz.BestResultCount)
-            {
-                CurrentQuiz.BestResultCount = CorrectCount;
-                CurrentQuiz.BestResultDate = DateTime.Now;
-                await App.Database.SaveQuizAsync(CurrentQuiz);
-            }
+            currentQuiz = await App.Database.GetQuizAsync(id);
+            OnPropertyChanged(nameof(SaveResultValid));
+            OnPropertyChanged(nameof(ResultInfo));
         }
     }
 }

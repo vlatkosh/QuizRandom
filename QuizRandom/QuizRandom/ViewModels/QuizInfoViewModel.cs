@@ -22,7 +22,7 @@ namespace QuizRandom.ViewModels
 
             PlayQuizCommand = new Command(async () =>
             {
-                await Shell.Current.GoToAsync($"{nameof(GamePlayPage)}?{nameof(GamePlayPage.ItemId)}={CurrentQuiz.ID}");
+                await Shell.Current.GoToAsync($"{nameof(GamePlayPage)}?{nameof(GamePlayPage.ItemId)}={currentQuiz.ID}");
             });
 
             DeleteQuizCommand = new Command(async () =>
@@ -37,24 +37,28 @@ namespace QuizRandom.ViewModels
                 {
                     return;
                 }
-                await App.Database.DeleteQuizAsync(CurrentQuiz);
+                // delete the quiz
+                await App.Database.DeleteQuizAsync(currentQuiz);
+                // go to MainPage
                 await Shell.Current.GoToAsync("..");
             });
         }
 
+        // Private members
+        private Quiz currentQuiz;
+
         // Public properties
         public int QuizID { get; private set; }
-        public Quiz CurrentQuiz { get; private set; }
 
         public string BestResultInfo
         {
             get
             {
-                if (CurrentQuiz is null)
+                if (currentQuiz is null)
                 {
                     return string.Empty;
                 }
-                else if (CurrentQuiz.BestResultCount == -1)
+                else if (currentQuiz.BestResultCount == -1)
                 {
                     return "Play the quiz and see how well you do!";
                 }
@@ -62,9 +66,9 @@ namespace QuizRandom.ViewModels
                 {
                     return string.Format(
                         "Best attempt was {0} questions out of {1}, done at {2}",
-                        CurrentQuiz.BestResultCount,
-                        CurrentQuiz.QuestionCount,
-                        CurrentQuiz.BestResultDate
+                        currentQuiz.BestResultCount,
+                        currentQuiz.QuestionCount,
+                        currentQuiz.BestResultDate
                     );
                 }
             }
@@ -79,8 +83,8 @@ namespace QuizRandom.ViewModels
         {
             int id = Convert.ToInt32(itemId);
             QuizID = id;
-            CurrentQuiz = await App.Database.GetQuizAsync(id);
-            
+            currentQuiz = await App.Database.GetQuizAsync(id);
+
             OnPropertyChanged(nameof(QuizID));
             OnPropertyChanged(nameof(BestResultInfo));
         }
