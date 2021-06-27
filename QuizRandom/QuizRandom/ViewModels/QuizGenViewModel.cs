@@ -4,7 +4,6 @@ using QuizRandom.Services;
 using QuizRandom.Views;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
 
@@ -130,7 +129,11 @@ namespace QuizRandom.ViewModels
             {
                 uri = uri + "&difficulty=" + difficulties[DifficultiesKeys[DifficultyIndex]];
             }
-            uri += "&type=multiple";
+            if (QuizTypeIndex > 0)
+            {
+                uri = uri + "&type" + quizTypes[QuizTypesKeys[QuizTypeIndex]];
+            }
+            //uri += "&type=multiple";
             return uri;
         }
     }

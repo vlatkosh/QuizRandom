@@ -7,25 +7,46 @@
         <local:GamePlayViewModel />
     </ContentPage.BindingContext>
     <ContentPage.Content>
-        <StackLayout Margin="{StaticResource PageMargin}">
-            <Label Text="{Binding QuestionNumber, StringFormat='Question number {0}'}" />
-            <Label Text="{Binding CorrectCount, StringFormat='Correct so far: {0}'}" />
-            <Label Text="{Binding QuestionText}" />
-            <CollectionView x:Name="answerView"
+        <Grid Margin="{StaticResource PageMargin}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="3*" />
+                <RowDefinition Height="5*" />
+            </Grid.RowDefinitions>
+            <Label Grid.Row="0"
+                   Text="{Binding QuestionNumber, StringFormat='Question number {0}'}" />
+            <Label Grid.Row="1"
+                   Text="{Binding CorrectCount, StringFormat='Correct so far: {0}'}" />
+            <Label Grid.Row="2"
+                   VerticalOptions="CenterAndExpand"
+                   HorizontalOptions="CenterAndExpand"
+                   HorizontalTextAlignment="Center"
+                   Text="{Binding QuestionText}"
+                   FontSize="18"
+                   FontAttributes="Bold" />
+            <CollectionView Grid.Row="3"
+                            x:Name="answerView"
                             SelectionMode="Single"
                             ItemsSource="{Binding Answers}"
                             SelectedItem="{Binding SelectedAnswer}"
-                            SelectionChangedCommand="{Binding InterpretAnswerCommand}">
+                            SelectionChangedCommand="{Binding InterpretAnswerCommand}"
+                            VerticalOptions="EndAndExpand">
                 <CollectionView.ItemsLayout>
                     <LinearItemsLayout Orientation="Vertical"
                                        ItemSpacing="30" />
                 </CollectionView.ItemsLayout>
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
-                        <Label Text="{Binding}" />
+                        <Label Text="{Binding}"
+                               TextColor="{StaticResource PrimaryColor}"
+                               HorizontalTextAlignment="Center"
+                               VerticalTextAlignment="Center"
+                               BackgroundColor="{StaticResource AppSecondaryColor}"
+                               HeightRequest="40" />
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>
-        </StackLayout>
+        </Grid>
     </ContentPage.Content>
 </ContentPage>

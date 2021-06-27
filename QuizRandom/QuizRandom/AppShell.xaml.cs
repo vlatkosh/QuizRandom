@@ -1,7 +1,4 @@
-﻿using QuizRandom.ViewModels;
-using QuizRandom.Views;
-using System;
-using System.Collections.Generic;
+﻿using QuizRandom.Views;
 using Xamarin.Forms;
 
 namespace QuizRandom

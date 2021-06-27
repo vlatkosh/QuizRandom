@@ -98,12 +98,13 @@ namespace QuizRandom.ViewModels
             if (QuestionNumber == questions.Count)
             {
                 // finished, go to end page
-
+                await Shell.Current.DisplayAlert("Oops", "Unfortunately, the result page has not been implemented yet.", "OK");
+                await Shell.Current.GoToAsync("..");
+                return;
                 /*
                  *  The segfault seems to happen as soon as the object of the next page instantiated,
                  *  or right after the following function is called.
                  */
-
                 await Shell.Current.GoToAsync(
                     $"{nameof(GameEndPage)}" +
                     $"?{nameof(GameEndPage.QuizId)}={currentQuiz.ID}" +

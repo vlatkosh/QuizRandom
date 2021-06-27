@@ -1,16 +1,10 @@
-﻿using QuizRandom.Services;
-using QuizRandom.Models;
-using QuizRandom.ViewModels;
+﻿using QuizRandom.Models;
 using QuizRandom.Views;
-using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Diagnostics;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
-
 
 namespace QuizRandom.ViewModels
 {

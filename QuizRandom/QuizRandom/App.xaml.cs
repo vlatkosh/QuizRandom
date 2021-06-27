@@ -1,19 +1,14 @@
 ﻿using QuizRandom.Services;
-using QuizRandom.Views;
-using QuizRandom.ViewModels;
-using QuizRandom.Models;
 using System;
 using System.IO;
 using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
 
 namespace QuizRandom
 {
     public partial class App : Application
     {
-        static QuizDatabase database;
-        //static GameManager manager;
-
+        public static QuizDatabase database;
+        
         // create the database connection as a singleton
         public static QuizDatabase Database
         {
@@ -28,19 +23,7 @@ namespace QuizRandom
                 return database;
             }
         }
-
-        //public static GameManager Manager
-        //{
-        //    get
-        //    {
-        //        if (manager == null)
-        //        {
-        //            manager = new GameManager();
-        //        }
-        //        return manager;
-        //    }
-        //}
-
+        
         public App()
         {
             InitializeComponent();

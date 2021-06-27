@@ -7,14 +7,26 @@
         <local:QuizInfoViewModel />
     </ContentPage.BindingContext>
     <ContentPage.Content>
-        <StackLayout Margin="{StaticResource PageMargin}">
-            <Label Text="{Binding QuizID, StringFormat='Quiz ID: {0}'}" />
-            <Label Text="{Binding BestResultInfo}" />
-            <Button Text="Play"
+        <Grid Margin="{StaticResource PageMargin}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="4*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Label Grid.Row="0"
+                   Text="{Binding QuizID, StringFormat='Quiz ID: {0}'}" />
+            <Label Grid.Row="1"
+                   Text="{Binding BestResultInfo}"
+                   FontAttributes="Bold"
+                   HorizontalOptions="CenterAndExpand"
+                   VerticalOptions="CenterAndExpand" />
+            <Button Grid.Row="2"
+                    Text="Play"
                     Command="{Binding PlayQuizCommand}" />
-            <Button Text="Delete"
+            <Button Grid.Row="3"
+                    Text="Delete"
                     Command="{Binding DeleteQuizCommand}" />
-        </StackLayout>
+        </Grid>
     </ContentPage.Content>
-    
 </ContentPage>

@@ -1,10 +1,8 @@
-﻿using QuizRandom.Views;
-using QuizRandom.Models;
+﻿using QuizRandom.Models;
+using QuizRandom.Views;
 using System;
-using System.ComponentModel;
 using System.Diagnostics;
 using System.Windows.Input;
-
 using Xamarin.Forms;
 
 /*

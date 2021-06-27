@@ -26,13 +26,11 @@
                     Title="Select difficulty"
                     ItemsSource="{Binding DifficultiesKeys, Mode=OneWay}"
                     SelectedIndex="{Binding DifficultyIndex, Mode=OneWayToSource}" />
-            <!--
             <Label Text="Quiz type:" />
             <Picker x:Name="quizTypePicker"
                     Title="Select quiz type"
                     ItemsSource="{Binding QuizTypesKeys, Mode=OneWay}"
                     SelectedIndex="{Binding QuizTypeIndex, Mode=OneWayToSource}" />
-            -->
             <Button Text="Generate quiz"
                     Command="{Binding CreateQuizCommand}" />
         </StackLayout>
