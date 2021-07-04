@@ -1,5 +1,4 @@
 ﻿using QuizRandom.ViewModels;
-using System.Diagnostics;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -19,12 +18,5 @@ namespace QuizRandom.Views
         {
             set => ((GamePlayViewModel)BindingContext).LoadQuiz(value);
         }
-
-        //protected override async void OnAppearing()
-        //{
-        //    base.OnAppearing();
-        //    Debug.WriteLine("GamePlayPage OnAppearing");
-        //    await ((GamePlayViewModel)BindingContext).LoadQuestion();
-        //}
     }
 }

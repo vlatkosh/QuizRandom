@@ -31,12 +31,12 @@ namespace QuizRandom.ViewModels
         }
 
         // Public properties
-        public List<Quiz> Quizzes { get; private set; }
+        public List<Quiz> Quizzes { get; set; }
         public Quiz SelectedQuiz { get; set; }
 
         // ICommand implementations
-        public ICommand GoToQuizGenPageCommand { get; protected set; }
-        public ICommand GoToQuizInfoPageCommand { get; protected set; }
+        public ICommand GoToQuizGenPageCommand { get; set; }
+        public ICommand GoToQuizInfoPageCommand { get; set; }
 
         // Methods
         public async Task ReloadQuizzesAsync()

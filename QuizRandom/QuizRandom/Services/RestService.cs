@@ -23,6 +23,7 @@ namespace QuizRandom.Services
                 if (response.IsSuccessStatusCode)
                 {
                     data = await response.Content.ReadAsStringAsync();
+                    //data = WebUtility.HtmlDecode(data);
                 }
             }
             catch (Exception ex)

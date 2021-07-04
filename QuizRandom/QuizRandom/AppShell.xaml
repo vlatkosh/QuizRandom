@@ -13,7 +13,8 @@
 
     <Shell.Resources>
         <ResourceDictionary>
-            <Style x:Key="BaseStyle" TargetType="Element">
+            <Style x:Key="BaseStyle"
+                   TargetType="Element">
                 <Setter Property="Shell.BackgroundColor"
                         Value="{StaticResource AppPrimaryColor}" />
                 <Setter Property="Shell.ForegroundColor"
@@ -27,11 +28,11 @@
                 <Setter Property="Shell.TabBarBackgroundColor"
                         Value="{StaticResource AppPrimaryColor}" />
                 <Setter Property="Shell.TabBarForegroundColor"
-                        Value="{StaticResource AppBackgroundColor}"/>
+                        Value="{StaticResource AppBackgroundColor}" />
                 <Setter Property="Shell.TabBarUnselectedColor"
                         Value="#95FFFFFF"/>
                 <Setter Property="Shell.TabBarTitleColor"
-                        Value="{StaticResource AppBackgroundColor}"/>
+                        Value="{StaticResource AppBackgroundColor}" />
             </Style>
             <Style TargetType="TabBar"
                    BasedOn="{StaticResource BaseStyle}" />

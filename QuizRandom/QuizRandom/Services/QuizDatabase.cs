@@ -8,7 +8,7 @@ namespace QuizRandom.Services
 {
     public class QuizDatabase
     {
-        // Private
+        // Private members
         readonly SQLiteAsyncConnection database;
 
         // Constructor

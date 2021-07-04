@@ -1,7 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
 using System.Collections.Generic;
-using System.Text;
-using Newtonsoft.Json;
 
 namespace QuizRandom.Models
 {
@@ -22,7 +20,6 @@ namespace QuizRandom.Models
         [JsonProperty("correct_answer")]
         public string CorrectAnswer { get; set; }
 
-        // not List<> because it doesn't seem to work
         [JsonProperty("incorrect_answers")]
         public List<string> IncorrectAnswers { get; set; }
     }

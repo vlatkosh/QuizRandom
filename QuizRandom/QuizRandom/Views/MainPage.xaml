@@ -23,20 +23,28 @@
                             SelectionChangedCommand="{Binding GoToQuizInfoPageCommand}">
                 <CollectionView.ItemsLayout>
                     <LinearItemsLayout Orientation="Vertical"
-                                       ItemSpacing="10" />
+                                       ItemSpacing="20" />
                 </CollectionView.ItemsLayout>
                 <!-- Define the appearance of each item in the list -->
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
-                        <StackLayout>
-                            <Label Text="{Binding ID, StringFormat='Quiz {0}'}"
-                                   TextColor="{StaticResource PrimaryColor}"
-                                   HorizontalOptions="CenterAndExpand"
-                                   VerticalOptions="CenterAndExpand"
-                                   BackgroundColor="{StaticResource AppSecondaryColor}"
-                                   MinimumHeightRequest="40" />
-                            <!--<Label Text="{Binding JSONData}" />-->
-                        </StackLayout>
+                        <Frame BorderColor="{StaticResource AppPrimaryColor}"
+                               CornerRadius="5">
+                            <StackLayout>
+                                <Label Text="{Binding Name}"
+                                       TextColor="{StaticResource PrimaryColor}"
+                                       FontSize="Medium" />
+                                <BoxView Color="{StaticResource AppPrimaryColor}"
+                                         HeightRequest="2"
+                                         HorizontalOptions="Fill" />
+                                <Label Text="{Binding CreationDate, StringFormat='Created on {0}'}"
+                                       TextColor="{StaticResource PrimaryColor}"
+                                       FontSize="Small" />
+                                <Label Text="{Binding PlayCount, StringFormat='Played {0} times'}"
+                                       TextColor="{StaticResource PrimaryColor}"
+                                       FontSize="Small" />
+                            </StackLayout>
+                        </Frame>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>

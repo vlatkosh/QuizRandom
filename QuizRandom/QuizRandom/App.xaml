@@ -8,12 +8,17 @@
     <Application.Resources>
         <ResourceDictionary>
             <Thickness x:Key="PageMargin" Left="20" Top="20" Right="20" Bottom="20" />
-            <!-- Colors -->
-            <Color x:Key="AppPrimaryColor">#2196F3</Color>
+            <!--
+            Colors
+            Note:
+            Old app primary color was #2196F3
+            Old app secondary color was #8ec0e8
+            -->
+            <Color x:Key="AppPrimaryColor">Purple</Color>
             <Color x:Key="AppBackgroundColor">White</Color>
-            <Color x:Key="AppSecondaryColor">#8ec0e8</Color>
+            <Color x:Key="AppSecondaryColor">Gray</Color>
             <Color x:Key="PrimaryColor">Black</Color>
-            <Color x:Key="SecondaryColor">AliceBlue</Color>
+            <Color x:Key="SecondaryColor">Gray</Color>
             <Color x:Key="TertiaryColor">Silver</Color>
             <!-- Implicit styles -->
             <Style TargetType="Button">

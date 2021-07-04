@@ -6,44 +6,65 @@
     <ContentPage.BindingContext>
         <local:GamePlayViewModel />
     </ContentPage.BindingContext>
+    <ContentPage.Resources>
+        <Color x:Key="CorrectColor">Green</Color>
+        <Color x:Key="IncorrectColor">Red</Color>
+    </ContentPage.Resources>
     <ContentPage.Content>
         <Grid Margin="{StaticResource PageMargin}">
             <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="3*" />
                 <RowDefinition Height="5*" />
             </Grid.RowDefinitions>
             <Label Grid.Row="0"
-                   Text="{Binding QuestionNumber, StringFormat='Question number {0}'}" />
-            <Label Grid.Row="1"
-                   Text="{Binding CorrectCount, StringFormat='Correct so far: {0}'}" />
+                   Text="{Binding CorrectCount, StringFormat='{0} questions answered correctly so far!'}"
+                   TextColor="{StaticResource PrimaryColor}"
+                   FontSize="Small" />
+            <BoxView Grid.Row="1"
+                     Color="{StaticResource AppPrimaryColor}"
+                     HeightRequest="2"
+                     HorizontalOptions="Fill" />
             <Label Grid.Row="2"
-                   VerticalOptions="CenterAndExpand"
-                   HorizontalOptions="CenterAndExpand"
-                   HorizontalTextAlignment="Center"
-                   Text="{Binding QuestionText}"
-                   FontSize="18"
-                   FontAttributes="Bold" />
-            <CollectionView Grid.Row="3"
+                   Text="{Binding QuestionInfo}"
+                   TextColor="{StaticResource PrimaryColor}" />
+            <Frame Grid.Row="3"
+                   BorderColor="{StaticResource AppPrimaryColor}"
+                   CornerRadius="5" >
+                <Label VerticalOptions="CenterAndExpand"
+                       HorizontalOptions="CenterAndExpand"
+                       Text="{Binding QuestionText}"
+                       TextColor="{StaticResource PrimaryColor}"
+                       FontSize="Medium"
+                       HorizontalTextAlignment="Center"/>
+            </Frame>
+            <CollectionView Grid.Row="4"
                             x:Name="answerView"
                             SelectionMode="Single"
                             ItemsSource="{Binding Answers}"
                             SelectedItem="{Binding SelectedAnswer}"
                             SelectionChangedCommand="{Binding InterpretAnswerCommand}"
-                            VerticalOptions="EndAndExpand">
+                            VerticalOptions="FillAndExpand"
+                            VerticalScrollBarVisibility="Always">
                 <CollectionView.ItemsLayout>
                     <LinearItemsLayout Orientation="Vertical"
-                                       ItemSpacing="30" />
+                                       ItemSpacing="5" />
                 </CollectionView.ItemsLayout>
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
-                        <Label Text="{Binding}"
-                               TextColor="{StaticResource PrimaryColor}"
+                        <Label Padding="10"
+                               BackgroundColor="{Binding Source={x:Reference answerView},
+                                                         Path=BindingContext.AnswerColor,
+                                                         Mode=OneWay}"
+                               Text="{Binding}"
+                               TextColor="{StaticResource AppBackgroundColor}"
+                               FontSize="Medium"
                                HorizontalTextAlignment="Center"
                                VerticalTextAlignment="Center"
-                               BackgroundColor="{StaticResource AppSecondaryColor}"
-                               HeightRequest="40" />
+                               VerticalOptions="CenterAndExpand"
+                               LineBreakMode="WordWrap" />
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>

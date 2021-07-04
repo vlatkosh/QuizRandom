@@ -7,10 +7,30 @@
         <local:AboutViewModel />
     </ContentPage.BindingContext>
     <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
+        <StackLayout Margin="{StaticResource PageMargin}"
+                     Spacing="20">
+            <Label TextColor="{StaticResource PrimaryColor}">
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="QuizRandom "
+                              FontAttributes="Bold"
+                              FontSize="Large" />
+                        <Span Text="v1.0"
+                              FontSize="Medium" />
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+            <Label Text="By Vladimir Sharkovski"
+                   TextColor="{StaticResource PrimaryColor}"
+                   FontSize="Medium"
+                   FontAttributes="Italic" />
+            <BoxView Color="{StaticResource AppPrimaryColor}"
+                     HeightRequest="2"
+                     HorizontalOptions="Fill" />
+            <Button Text="Github repository"
+                    Command="{Binding OpenGithubCommand}" />
+            <Button Text="Delete all data"
+                    Command="{Binding DeleteAllCommand}" />
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

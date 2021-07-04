@@ -86,8 +86,8 @@ namespace QuizRandom.ViewModels
         }
 
         // ICommand implementations
-        public ICommand SaveResultCommand { get; private set; }
-        public ICommand GoBackCommand { get; private set; }
+        public ICommand SaveResultCommand { get; set; }
+        public ICommand GoBackCommand { get; set; }
 
         // Methods
         public async void LoadQuiz(string QuizId)

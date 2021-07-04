@@ -5,10 +5,6 @@ using System.Diagnostics;
 using System.Windows.Input;
 using Xamarin.Forms;
 
-/*
- *  
- */
-
 namespace QuizRandom.ViewModels
 {
     public class QuizInfoViewModel : MyBindableObject
@@ -46,9 +42,9 @@ namespace QuizRandom.ViewModels
         private Quiz currentQuiz;
 
         // Public properties
-        public int QuizID { get; private set; }
+        public string QuizName => currentQuiz is null ? string.Empty : currentQuiz.Name;
 
-        public string BestResultInfo
+        public string QuizInfo
         {
             get
             {
@@ -56,35 +52,33 @@ namespace QuizRandom.ViewModels
                 {
                     return string.Empty;
                 }
-                else if (currentQuiz.BestResultCount == -1)
+                string s = string.Empty;
+                s += $"This quiz was created on {currentQuiz.CreationDate}.\n";
+                s += $"It has {currentQuiz.QuestionCount} questions.\n\n";
+                if (currentQuiz.BestResultCount == -1)
                 {
-                    return "Play the quiz and see how well you do!";
+                    s += "Play the quiz and see how well you do!\n";
                 }
                 else
                 {
-                    return string.Format(
-                        "Best attempt was {0} questions out of {1}, done at {2}",
-                        currentQuiz.BestResultCount,
-                        currentQuiz.QuestionCount,
-                        currentQuiz.BestResultDate
-                    );
+                    s += $"Best attempt was {currentQuiz.BestResultCount} / {currentQuiz.QuestionCount} at {currentQuiz.BestResultDate}.\n";
                 }
+                return s;
             }
         }
 
         // ICommand implementations
-        public ICommand PlayQuizCommand { get; protected set; }
-        public ICommand DeleteQuizCommand { get; protected set; }
+        public ICommand PlayQuizCommand { get; set; }
+        public ICommand DeleteQuizCommand { get; set; }
 
         // Methods
         public async void LoadQuiz(string itemId)
         {
             int id = Convert.ToInt32(itemId);
-            QuizID = id;
             currentQuiz = await App.Database.GetQuizAsync(id);
 
-            OnPropertyChanged(nameof(QuizID));
-            OnPropertyChanged(nameof(BestResultInfo));
+            OnPropertyChanged(nameof(QuizName));
+            OnPropertyChanged(nameof(QuizInfo));
         }
     }
 }

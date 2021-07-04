@@ -6,31 +6,46 @@
     <ContentPage.BindingContext>
         <local:QuizGenViewModel />
     </ContentPage.BindingContext>
+    <ContentPage.Resources>
+        <Style TargetType="Label">
+            <Setter Property="TextColor"
+                    Value="{StaticResource PrimaryColor}" />
+            <Setter Property="FontSize"
+                    Value="Medium" />
+        </Style>
+        <Style TargetType="Picker">
+            <Setter Property="TextColor"
+                    Value="{StaticResource SecondaryColor}" />
+        </Style>
+    </ContentPage.Resources>
     <ContentPage.Content>
-        <StackLayout Margin="{StaticResource PageMargin}">
+        <StackLayout Margin="{StaticResource PageMargin}"
+                     Spacing="10">
             <Label Text="Number of questions:" />
             <!-- same as setting BindingContext="{x:Reference numberStepper"} Text={Binding Value} -->
-            <Label Text="{Binding Source={x:Reference numberStepper}, Path=Value}" />
+            <Label Text="{Binding Source={x:Reference numberStepper},
+                                  Path=Value}"
+                   FontSize="Large"/>
             <Stepper x:Name="numberStepper"
                      Value="{Binding QuestionCount, Mode=TwoWay}"
-                     Minimum="0"
+                     Minimum="5"
                      Maximum="50"
                      Increment="5" />
             <Label Text="Quiz category:" />
             <Picker x:Name="categoryPicker"
                     Title="Select category"
                     ItemsSource="{Binding CategoriesKeys, Mode=OneWay}"
-                    SelectedIndex="{Binding CategoryIndex, Mode=OneWayToSource}" />
+                    SelectedIndex="{Binding CategoryIndex, Mode=TwoWay}" />
             <Label Text="Quiz difficulty:" />
             <Picker x:Name="difficultyPicker"
                     Title="Select difficulty"
                     ItemsSource="{Binding DifficultiesKeys, Mode=OneWay}"
-                    SelectedIndex="{Binding DifficultyIndex, Mode=OneWayToSource}" />
+                    SelectedIndex="{Binding DifficultyIndex, Mode=TwoWay}" />
             <Label Text="Quiz type:" />
             <Picker x:Name="quizTypePicker"
                     Title="Select quiz type"
                     ItemsSource="{Binding QuizTypesKeys, Mode=OneWay}"
-                    SelectedIndex="{Binding QuizTypeIndex, Mode=OneWayToSource}" />
+                    SelectedIndex="{Binding QuizTypeIndex, Mode=TwoWay}" />
             <Button Text="Generate quiz"
                     Command="{Binding CreateQuizCommand}" />
         </StackLayout>
