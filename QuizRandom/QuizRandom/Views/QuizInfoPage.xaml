@@ -18,11 +18,9 @@
                    HorizontalOptions="CenterAndExpand"
                    VerticalOptions="CenterAndExpand"
                    Text="{Binding QuizName}"
-                   TextColor="{StaticResource PrimaryColor}"
                    FontSize="Title" />
             <Label Grid.Row="1"
                    Text="{Binding QuizInfo}"
-                   TextColor="{StaticResource PrimaryColor}"
                    FontSize="Medium" />
             <Button Grid.Row="2"
                     Text="Play"

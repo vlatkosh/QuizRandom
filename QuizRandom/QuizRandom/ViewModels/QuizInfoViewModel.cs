@@ -53,7 +53,7 @@ namespace QuizRandom.ViewModels
                     return string.Empty;
                 }
                 string s = string.Empty;
-                s += $"This quiz was created on {currentQuiz.CreationDate}.\n";
+                s += $"This quiz was created on {currentQuiz.CreationDate.ToString("h\\:mm tt, dddd, MMM d, yyyy")}.\n";
                 s += $"It has {currentQuiz.QuestionCount} questions.\n\n";
                 if (currentQuiz.BestResultCount == -1)
                 {

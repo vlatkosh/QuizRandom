@@ -6,18 +6,6 @@
     <ContentPage.BindingContext>
         <local:QuizGenViewModel />
     </ContentPage.BindingContext>
-    <ContentPage.Resources>
-        <Style TargetType="Label">
-            <Setter Property="TextColor"
-                    Value="{StaticResource PrimaryColor}" />
-            <Setter Property="FontSize"
-                    Value="Medium" />
-        </Style>
-        <Style TargetType="Picker">
-            <Setter Property="TextColor"
-                    Value="{StaticResource SecondaryColor}" />
-        </Style>
-    </ContentPage.Resources>
     <ContentPage.Content>
         <StackLayout Margin="{StaticResource PageMargin}"
                      Spacing="10">

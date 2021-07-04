@@ -21,7 +21,6 @@
             </Grid.RowDefinitions>
             <Label Grid.Row="0"
                    Text="{Binding CorrectCount, StringFormat='{0} questions answered correctly so far!'}"
-                   TextColor="{StaticResource PrimaryColor}"
                    FontSize="Small" />
             <BoxView Grid.Row="1"
                      Color="{StaticResource AppPrimaryColor}"
@@ -29,15 +28,13 @@
                      HorizontalOptions="Fill" />
             <Label Grid.Row="2"
                    Text="{Binding QuestionInfo}"
-                   TextColor="{StaticResource PrimaryColor}" />
+                   FontSize="Small" />
             <Frame Grid.Row="3"
                    BorderColor="{StaticResource AppPrimaryColor}"
                    CornerRadius="5" >
                 <Label VerticalOptions="CenterAndExpand"
                        HorizontalOptions="CenterAndExpand"
                        Text="{Binding QuestionText}"
-                       TextColor="{StaticResource PrimaryColor}"
-                       FontSize="Medium"
                        HorizontalTextAlignment="Center"/>
             </Frame>
             <CollectionView Grid.Row="4"
@@ -60,7 +57,6 @@
                                                          Mode=OneWay}"
                                Text="{Binding}"
                                TextColor="{StaticResource AppBackgroundColor}"
-                               FontSize="Medium"
                                HorizontalTextAlignment="Center"
                                VerticalTextAlignment="Center"
                                VerticalOptions="CenterAndExpand"

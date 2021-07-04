@@ -9,7 +9,7 @@
     <ContentPage.Content>
         <StackLayout Margin="{StaticResource PageMargin}"
                      Spacing="20">
-            <Label TextColor="{StaticResource PrimaryColor}">
+            <Label>
                 <Label.FormattedText>
                     <FormattedString>
                         <Span Text="QuizRandom "
@@ -21,8 +21,6 @@
                 </Label.FormattedText>
             </Label>
             <Label Text="By Vladimir Sharkovski"
-                   TextColor="{StaticResource PrimaryColor}"
-                   FontSize="Medium"
                    FontAttributes="Italic" />
             <BoxView Color="{StaticResource AppPrimaryColor}"
                      HeightRequest="2"

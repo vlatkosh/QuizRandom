@@ -6,9 +6,6 @@
     <ContentPage.BindingContext>
         <local:MainViewModel />
     </ContentPage.BindingContext>
-    <ContentPage.Resources>
-        
-    </ContentPage.Resources>
     <ContentPage.ToolbarItems>
         <ToolbarItem Text="New Quiz"
                      Command="{Binding GoToQuizGenPageCommand}" />
@@ -32,16 +29,13 @@
                                CornerRadius="5">
                             <StackLayout>
                                 <Label Text="{Binding Name}"
-                                       TextColor="{StaticResource PrimaryColor}"
                                        FontSize="Medium" />
                                 <BoxView Color="{StaticResource AppPrimaryColor}"
                                          HeightRequest="2"
                                          HorizontalOptions="Fill" />
-                                <Label Text="{Binding CreationDate, StringFormat='Created on {0}'}"
-                                       TextColor="{StaticResource PrimaryColor}"
+                                <Label Text="{Binding CreationDate, StringFormat='Created on {0:h\\:mm tt, dddd, MMM d, yyyy}'}"
                                        FontSize="Small" />
                                 <Label Text="{Binding PlayCount, StringFormat='Played {0} times'}"
-                                       TextColor="{StaticResource PrimaryColor}"
                                        FontSize="Small" />
                             </StackLayout>
                         </Frame>
