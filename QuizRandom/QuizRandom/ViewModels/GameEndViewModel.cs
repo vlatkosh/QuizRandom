@@ -6,7 +6,7 @@ using Xamarin.Forms;
 
 namespace QuizRandom.ViewModels
 {
-    public class GameEndViewModel : MyBindableObject
+    public class GameEndViewModel : BaseViewModel
     {
         // Constructor
         public GameEndViewModel()
@@ -18,7 +18,7 @@ namespace QuizRandom.ViewModels
                 // save to database if better
                 currentQuiz.BestResultCount = CorrectCount;
                 currentQuiz.BestResultDate = DateTime.Now;
-                await App.Database.SaveQuizAsync(currentQuiz);
+                await App.Database.SaveItemAsync(ref currentQuiz);
             });
 
             GoBackCommand = new Command(async () =>
@@ -93,7 +93,7 @@ namespace QuizRandom.ViewModels
         public async void LoadQuiz(string QuizId)
         {
             int id = Convert.ToInt32(QuizId);
-            currentQuiz = await App.Database.GetQuizAsync(id);
+            currentQuiz = await App.Database.GetItemAsync<Quiz>(id);
             OnPropertyChanged(nameof(SaveResultValid));
             OnPropertyChanged(nameof(ResultInfo));
         }

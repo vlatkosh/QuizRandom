@@ -10,7 +10,7 @@ using Xamarin.Forms;
 
 namespace QuizRandom.ViewModels
 {
-    public class QuizGenViewModel : MyBindableObject
+    public class QuizGenViewModel : BaseViewModel
     {
         // Constructor
         public QuizGenViewModel()
@@ -125,7 +125,7 @@ namespace QuizRandom.ViewModels
 
             // create quiz, add it to database
             Quiz quiz = new Quiz(ref quizData, rootObject.Results.Count);
-            await App.Database.SaveQuizAsync(quiz);
+            await App.Database.SaveItemAsync(ref quiz);
 
             // go to its quiz page
             await Shell.Current.GoToAsync($"{nameof(QuizInfoPage)}?{nameof(QuizInfoPage.ItemId)}={quiz.ID}");

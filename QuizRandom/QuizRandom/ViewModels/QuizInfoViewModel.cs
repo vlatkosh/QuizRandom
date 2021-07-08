@@ -7,7 +7,7 @@ using Xamarin.Forms;
 
 namespace QuizRandom.ViewModels
 {
-    public class QuizInfoViewModel : MyBindableObject
+    public class QuizInfoViewModel : BaseViewModel
     {
         // Constructor
         public QuizInfoViewModel()
@@ -32,7 +32,7 @@ namespace QuizRandom.ViewModels
                     return;
                 }
                 // delete the quiz
-                await App.Database.DeleteQuizAsync(currentQuiz);
+                await App.Database.DeleteItemAsync<Quiz>(ref currentQuiz);
                 // go to MainPage
                 await Shell.Current.GoToAsync("..");
             });
@@ -53,7 +53,7 @@ namespace QuizRandom.ViewModels
                     return string.Empty;
                 }
                 string s = string.Empty;
-                s += $"This quiz was created on {currentQuiz.CreationDate.ToString("h\\:mm tt, dddd, MMM d, yyyy")}.\n";
+                s += $"This quiz was created on {currentQuiz.CreationDate:h\\:mm tt, dddd, MMM d, yyyy}.\n";
                 s += $"It has {currentQuiz.QuestionCount} questions.\n\n";
                 if (currentQuiz.BestResultCount == -1)
                 {
@@ -75,7 +75,7 @@ namespace QuizRandom.ViewModels
         public async void LoadQuiz(string itemId)
         {
             int id = Convert.ToInt32(itemId);
-            currentQuiz = await App.Database.GetQuizAsync(id);
+            currentQuiz = await App.Database.GetItemAsync<Quiz>(id);
 
             OnPropertyChanged(nameof(QuizName));
             OnPropertyChanged(nameof(QuizInfo));

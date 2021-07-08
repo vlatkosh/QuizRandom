@@ -1,9 +1,10 @@
 ﻿using SQLite;
 using System;
+using QuizRandom.Services.Database;
 
 namespace QuizRandom.Models
 {
-    public class Quiz
+    public class Quiz : DatabaseItem
     {
         // Constructors
         public Quiz()
@@ -21,9 +22,6 @@ namespace QuizRandom.Models
         private string name = string.Empty;
 
         // Public properties
-        [PrimaryKey, AutoIncrement]
-        public int ID { get; set; }
-
         public string QuestionDataRaw { get; set; } = string.Empty;
         public int QuestionCount { get; set; } = 0;
         public int PlayCount { get; set; } = 0;

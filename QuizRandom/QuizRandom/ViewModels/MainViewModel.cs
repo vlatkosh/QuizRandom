@@ -1,4 +1,5 @@
-﻿using QuizRandom.Models;
+﻿using QuizRandom.ViewModels;
+using QuizRandom.Models;
 using QuizRandom.Views;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -8,7 +9,7 @@ using Xamarin.Forms;
 
 namespace QuizRandom.ViewModels
 {
-    public class MainViewModel : MyBindableObject
+    public class MainViewModel : BaseViewModel
     {
         // Constructor
         public MainViewModel()
@@ -42,7 +43,7 @@ namespace QuizRandom.ViewModels
         public async Task ReloadQuizzesAsync()
         {
             // Called by the page's overloaded OnAppearing method
-            Quizzes = await App.Database.GetQuizzesAsync();
+            Quizzes = await App.Database.GetItemsAsync<Quiz>();
             OnPropertyChanged(nameof(Quizzes));
         }
     }

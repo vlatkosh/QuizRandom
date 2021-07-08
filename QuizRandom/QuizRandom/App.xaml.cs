@@ -1,4 +1,4 @@
-﻿using QuizRandom.Services;
+﻿using QuizRandom.Services.Database;
 using System;
 using System.IO;
 using Xamarin.Forms;
@@ -7,18 +7,19 @@ namespace QuizRandom
 {
     public partial class App : Application
     {
-        public static QuizDatabase database;
+        public static LocalDatabase database;
         
         // create the database connection as a singleton
-        public static QuizDatabase Database
+        public static LocalDatabase Database
         {
             get
             {
                 if (database == null)
                 {
-                    database = new QuizDatabase(Path.Combine(
+                    database = new LocalDatabase(Path.Combine(
                         Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
-                        "Quizzes.db3"));
+                        "Database.db3")
+                    );
                 }
                 return database;
             }

@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel;
 
-namespace QuizRandom.Models
+namespace QuizRandom.ViewModels
 {
-    public abstract class MyBindableObject : INotifyPropertyChanged
+    public abstract class BaseViewModel : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
 

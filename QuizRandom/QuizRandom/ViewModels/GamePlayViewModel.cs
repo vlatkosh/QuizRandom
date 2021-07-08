@@ -11,7 +11,7 @@ using Xamarin.Forms;
 
 namespace QuizRandom.ViewModels
 {
-    public class GamePlayViewModel : MyBindableObject
+    public class GamePlayViewModel : BaseViewModel
     {
         // Constructor
         public GamePlayViewModel()
@@ -82,7 +82,7 @@ namespace QuizRandom.ViewModels
             }
 
             int id = Convert.ToInt32(itemId);
-            currentQuiz = await App.Database.GetQuizAsync(id);
+            currentQuiz = await App.Database.GetItemAsync<Quiz>(id);
 
             questions = JsonConvert.DeserializeObject<List<QuizQuestion>>(currentQuiz.QuestionDataRaw);
 

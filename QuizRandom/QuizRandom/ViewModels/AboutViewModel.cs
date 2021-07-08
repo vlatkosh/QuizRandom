@@ -5,7 +5,7 @@ using Xamarin.Forms;
 
 namespace QuizRandom.ViewModels
 {
-    public class AboutViewModel : MyBindableObject
+    public class AboutViewModel : BaseViewModel
     {
         // Constructor
         public AboutViewModel()
@@ -27,7 +27,8 @@ namespace QuizRandom.ViewModels
                 {
                     return;
                 }
-                await App.Database.DeleteEverythingAsync();
+                await App.Database.DeleteEverythingAsync<Quiz>();
+                await App.Database.DeleteEverythingAsync<QuizResult>();
             });
         }
 
