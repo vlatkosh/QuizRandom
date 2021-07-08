@@ -15,6 +15,7 @@ namespace QuizRandom.Services.Database
         public LocalDatabase(string dbPath)
         {
             database = new SQLiteAsyncConnection(dbPath);
+            createdTables = new HashSet<Type>();
         }
 
         // Methods

@@ -1,6 +1,6 @@
-﻿using SQLite;
+﻿using QuizRandom.Services.Database;
+using SQLite;
 using System;
-using QuizRandom.Services.Database;
 
 namespace QuizRandom.Models
 {
@@ -24,10 +24,7 @@ namespace QuizRandom.Models
         // Public properties
         public string QuestionDataRaw { get; set; } = string.Empty;
         public int QuestionCount { get; set; } = 0;
-        public int PlayCount { get; set; } = 0;
         public DateTime CreationDate { get; set; } = DateTime.Now;
-        public int BestResultCount { get; set; } = -1;
-        public DateTime BestResultDate { get; set; } = DateTime.Now;
 
         public string Name
         {

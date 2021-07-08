@@ -2,32 +2,31 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:QuizRandom.ViewModels"
-             x:Class="QuizRandom.Views.QuizInfoPage">
+             x:Class="QuizRandom.Views.EndPage">
     <ContentPage.BindingContext>
-        <local:QuizInfoViewModel />
+        <local:EndViewModel />
     </ContentPage.BindingContext>
     <ContentPage.Content>
+        <!--<StackLayout Margin="{StaticResource PageMargin}">
+            <Label Text="{Binding ResultInfo}" />
+            <Button Text="Go back"
+                    Command="{Binding GoBackCommand}" />
+        </StackLayout>-->
         <Grid Margin="{StaticResource PageMargin}">
             <Grid.RowDefinitions>
-                <RowDefinition Height="2*" />
-                <RowDefinition Height="5*" />
                 <RowDefinition Height="*" />
-                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
             <Label Grid.Row="0"
+                   Padding="10,10,10,10"
                    HorizontalOptions="CenterAndExpand"
                    VerticalOptions="CenterAndExpand"
-                   Text="{Binding QuizName}"
-                   FontSize="Title" />
-            <Label Grid.Row="1"
-                   Text="{Binding QuizInfo}"
-                   FontSize="Medium" />
-            <Button Grid.Row="2"
-                    Text="Play"
-                    Command="{Binding PlayQuizCommand}" />
-            <Button Grid.Row="3"
-                    Text="Delete"
-                    Command="{Binding DeleteQuizCommand}" />
+                   Text="{Binding ResultInfo}"
+                   FontSize="Large"
+                   HorizontalTextAlignment="Center" />
+            <Button Grid.Row="1"
+                    Text="Go back"
+                    Command="{Binding GoBackCommand}" />
         </Grid>
     </ContentPage.Content>
 </ContentPage>

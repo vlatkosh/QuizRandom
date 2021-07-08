@@ -10,10 +10,10 @@ using Xamarin.Forms;
 
 namespace QuizRandom.ViewModels
 {
-    public class QuizGenViewModel : BaseViewModel
+    public class NewAutoViewModel : BaseViewModel
     {
         // Constructor
-        public QuizGenViewModel()
+        public NewAutoViewModel()
         {
             Debug.WriteLine($"{this.GetType()} constructor");
 
@@ -128,7 +128,7 @@ namespace QuizRandom.ViewModels
             await App.Database.SaveItemAsync(ref quiz);
 
             // go to its quiz page
-            await Shell.Current.GoToAsync($"{nameof(QuizInfoPage)}?{nameof(QuizInfoPage.ItemId)}={quiz.ID}");
+            await Shell.Current.GoToAsync($"{nameof(InfoPage)}?{nameof(InfoViewModel.ID)}={quiz.ID}");
         }
 
         private string CreateURI()

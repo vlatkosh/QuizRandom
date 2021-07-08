@@ -49,6 +49,15 @@
                 <Setter Property="FontSize"
                         Value="Medium" />
             </Style>
+            <Style x:Key="VerticalSeparator"
+                   TargetType="BoxView">
+                <Setter Property="Color"
+                        Value="{StaticResource AppPrimaryColor}" />
+                <Setter Property="HeightRequest"
+                        Value="2" />
+                <Setter Property="HorizontalOptions"
+                        Value="Fill" />
+            </Style>
         </ResourceDictionary>
     </Application.Resources>
 </Application>

@@ -2,9 +2,9 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:QuizRandom.ViewModels"
-             x:Class="QuizRandom.Views.GamePlayPage">
+             x:Class="QuizRandom.Views.PlayingPage">
     <ContentPage.BindingContext>
-        <local:GamePlayViewModel />
+        <local:PlayingViewModel />
     </ContentPage.BindingContext>
     <ContentPage.Resources>
         <Color x:Key="CorrectColor">Green</Color>
@@ -20,7 +20,7 @@
                 <RowDefinition Height="5*" />
             </Grid.RowDefinitions>
             <Label Grid.Row="0"
-                   Text="{Binding CorrectCount, StringFormat='{0} questions answered correctly so far!'}"
+                   Text="{Binding Score, StringFormat='{0} questions answered correctly so far!'}"
                    FontSize="Small" />
             <BoxView Grid.Row="1"
                      Color="{StaticResource AppPrimaryColor}"

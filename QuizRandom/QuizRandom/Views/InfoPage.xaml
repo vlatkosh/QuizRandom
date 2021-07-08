@@ -1,0 +1,78 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:QuizRandom.ViewModels"
+             x:Class="QuizRandom.Views.InfoPage">
+    <ContentPage.BindingContext>
+        <local:InfoViewModel />
+    </ContentPage.BindingContext>
+    <ContentPage.Resources>
+        <Style x:Key="ResultStyle"
+               TargetType="Label">
+            <Setter Property="FontSize"
+                    Value="Small" />
+            <Setter Property="HorizontalOptions"
+                    Value="CenterAndExpand" />
+            <Setter Property="VerticalOptions"
+                    Value="CenterAndExpand" />
+        </Style>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <Grid Margin="{StaticResource PageMargin}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="2*" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <Label Grid.Row="0"
+                   HorizontalOptions="CenterAndExpand"
+                   VerticalOptions="CenterAndExpand"
+                   Text="{Binding QuizName}"
+                   FontSize="Title" />
+            <BoxView Grid.Row="1"
+                     Style="{StaticResource VerticalSeparator}" />
+            <Label Grid.Row="2"
+                   Text="{Binding QuizInfo}"
+                   FontSize="Medium"
+                   HorizontalTextAlignment="Center" />
+            <BoxView Grid.Row="3"
+                     Style="{StaticResource VerticalSeparator}" />
+            <Label Grid.Row="4"
+                   HorizontalOptions="CenterAndExpand"
+                   Text="Best attempts"
+                   FontSize="Small" />
+            <CollectionView Grid.Row="5"
+                            Margin="10"
+                            SelectionMode="None"
+                            ItemsSource="{Binding Results}">
+                <CollectionView.ItemsLayout>
+                    <LinearItemsLayout Orientation="Vertical"
+                                       ItemSpacing="5" />
+                </CollectionView.ItemsLayout>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid ColumnDefinitions="*,*">
+                            <Label Grid.Column="0"
+                                   Style="{StaticResource ResultStyle}"
+                                   Text="{Binding Score, StringFormat='{0} points'}" />
+                            <Label Grid.Column="1"
+                                   Style="{StaticResource ResultStyle}"
+                                   Text="{Binding Date}" />
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+            <Button Grid.Row="6"
+                    Text="Play"
+                    Command="{Binding PlayQuizCommand}" />
+            <Button Grid.Row="7"
+                    Text="Delete"
+                    Command="{Binding DeleteQuizCommand}" />
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

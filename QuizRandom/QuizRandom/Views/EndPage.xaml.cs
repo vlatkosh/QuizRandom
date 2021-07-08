@@ -4,12 +4,12 @@ using Xamarin.Forms.Xaml;
 namespace QuizRandom.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class QuizGenPage : ContentPage
+    public partial class EndPage : ContentPage
     {
-        public QuizGenPage()
+        public EndPage()
         {
             InitializeComponent();
-            //BindingContext = new QuizGenViewModel();
+            //BindingContext = new EndViewModel();
         }
     }
 }

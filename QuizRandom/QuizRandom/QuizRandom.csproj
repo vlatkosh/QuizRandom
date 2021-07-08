@@ -14,11 +14,17 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="Views\GameEndPage.xaml.cs">
-      <DependentUpon>GameEndPage.xaml</DependentUpon>
+    <Compile Update="Views\EndPage.xaml.cs">
+      <DependentUpon>EndPage.xaml</DependentUpon>
     </Compile>
-    <Compile Update="Views\GamePlayPage.xaml.cs">
-      <DependentUpon>GamePlayPage.xaml</DependentUpon>
+    <Compile Update="Views\PlayingPage.xaml.cs">
+      <DependentUpon>PlayingPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\NewAutoPage.xaml.cs">
+      <DependentUpon>NewAutoPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\InfoPage.xaml.cs">
+      <DependentUpon>InfoPage.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
 
@@ -29,16 +35,16 @@
     <EmbeddedResource Update="Views\MainPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Views\QuizGenPage.xaml">
+    <EmbeddedResource Update="Views\NewAutoPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Views\QuizInfoPage.xaml">
+    <EmbeddedResource Update="Views\InfoPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Views\GamePlayPage.xaml">
+    <EmbeddedResource Update="Views\PlayingPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Views\GameEndPage.xaml">
+    <EmbeddedResource Update="Views\EndPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
   </ItemGroup>

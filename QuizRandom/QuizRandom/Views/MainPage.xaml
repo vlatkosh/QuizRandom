@@ -8,7 +8,10 @@
     </ContentPage.BindingContext>
     <ContentPage.ToolbarItems>
         <ToolbarItem Text="New Quiz"
-                     Command="{Binding GoToQuizGenPageCommand}" />
+                     Command="{Binding GoToNewAutoPageCommand}" />
+        <ToolbarItem Text="About"
+                     Command="{Binding GoToAboutPageCommand}"
+                     Order="Secondary" />
     </ContentPage.ToolbarItems>
     <ContentPage.Content>
         <Grid>
@@ -17,7 +20,7 @@
                             SelectionMode="Single"
                             ItemsSource="{Binding Quizzes}"
                             SelectedItem="{Binding SelectedQuiz}"
-                            SelectionChangedCommand="{Binding GoToQuizInfoPageCommand}">
+                            SelectionChangedCommand="{Binding GoToInfoPageCommand}">
                 <CollectionView.ItemsLayout>
                     <LinearItemsLayout Orientation="Vertical"
                                        ItemSpacing="20" />
@@ -30,12 +33,8 @@
                             <StackLayout>
                                 <Label Text="{Binding Name}"
                                        FontSize="Medium" />
-                                <BoxView Color="{StaticResource AppPrimaryColor}"
-                                         HeightRequest="2"
-                                         HorizontalOptions="Fill" />
+                                <BoxView Style="{StaticResource VerticalSeparator}" />
                                 <Label Text="{Binding CreationDate, StringFormat='Created on {0:h\\:mm tt, dddd, MMM d, yyyy}'}"
-                                       FontSize="Small" />
-                                <Label Text="{Binding PlayCount, StringFormat='Played {0} times'}"
                                        FontSize="Small" />
                             </StackLayout>
                         </Frame>

@@ -16,18 +16,23 @@ namespace QuizRandom.ViewModels
         {
             Debug.WriteLine($"{this.GetType()} constructor");
 
-            GoToQuizGenPageCommand = new Command(async () =>
+            GoToAboutPageCommand = new Command(async () =>
             {
-                await Shell.Current.GoToAsync(nameof(QuizGenPage));
+                await Shell.Current.GoToAsync(nameof(AboutPage));
             });
 
-            GoToQuizInfoPageCommand = new Command(async () =>
+            GoToNewAutoPageCommand = new Command(async () =>
+            {
+                await Shell.Current.GoToAsync(nameof(NewAutoPage));
+            });
+
+            GoToInfoPageCommand = new Command(async () =>
             {
                 if (SelectedQuiz is null || SelectedQuiz.ID == 0)
                 {
                     return;
                 }
-                await Shell.Current.GoToAsync($"{nameof(QuizInfoPage)}?{nameof(QuizInfoPage.ItemId)}={SelectedQuiz.ID}");
+                await Shell.Current.GoToAsync($"{nameof(InfoPage)}?{nameof(InfoViewModel.ID)}={SelectedQuiz.ID}");
             });
         }
 
@@ -36,8 +41,9 @@ namespace QuizRandom.ViewModels
         public Quiz SelectedQuiz { get; set; }
 
         // ICommand implementations
-        public ICommand GoToQuizGenPageCommand { get; set; }
-        public ICommand GoToQuizInfoPageCommand { get; set; }
+        public ICommand GoToAboutPageCommand { get; set; }
+        public ICommand GoToNewAutoPageCommand { get; set; }
+        public ICommand GoToInfoPageCommand { get; set; }
 
         // Methods
         public async Task ReloadQuizzesAsync()

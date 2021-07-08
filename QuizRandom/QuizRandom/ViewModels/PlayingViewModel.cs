@@ -11,10 +11,11 @@ using Xamarin.Forms;
 
 namespace QuizRandom.ViewModels
 {
-    public class GamePlayViewModel : BaseViewModel
+    [QueryProperty(nameof(ID), nameof(ID))]
+    public class PlayingViewModel : BaseViewModel
     {
         // Constructor
-        public GamePlayViewModel()
+        public PlayingViewModel()
         {
             Debug.WriteLine($"{this.GetType()} constructor");
 
@@ -32,10 +33,9 @@ namespace QuizRandom.ViewModels
         private int lastQuestionLoaded;
         private int questionNumber;
 
-        private readonly bool canContinue = false;
-
         // Public properties
-        public int CorrectCount { get; set; }
+        public int ID { set => LoadQuiz(Convert.ToInt32(value)); }
+        public int Score { get; set; }
         public List<string> Answers { get; set; }
         public string SelectedAnswer { get; set; }
         public Color AnswerColor { get; set; }
@@ -74,14 +74,12 @@ namespace QuizRandom.ViewModels
         public ICommand InterpretAnswerCommand { get; protected set; }
 
         // Methods
-        public async void LoadQuiz(string itemId)
+        public async void LoadQuiz(int id)
         {
             if (quizLoaded)
             {
                 return;
             }
-
-            int id = Convert.ToInt32(itemId);
             currentQuiz = await App.Database.GetItemAsync<Quiz>(id);
 
             questions = JsonConvert.DeserializeObject<List<QuizQuestion>>(currentQuiz.QuestionDataRaw);
@@ -97,8 +95,8 @@ namespace QuizRandom.ViewModels
             lastQuestionLoaded = -1;
             questionNumber = 0;
 
-            CorrectCount = 0;
-            OnPropertyChanged(nameof(CorrectCount));
+            Score = 0;
+            OnPropertyChanged(nameof(Score));
 
             AnswerColor = (Color)Application.Current.Resources["AppPrimaryColor"];
             OnPropertyChanged(nameof(AnswerColor));
@@ -116,30 +114,11 @@ namespace QuizRandom.ViewModels
             {
                 return;
             }
-
             if (questionNumber == questions.Count)
             {
-                // finished, go to end page
-                if (!canContinue)
-                {
-                    await Shell.Current.DisplayAlert("Oops", "Unfortunately, the result page has not been implemented yet.", "OK");
-                    await Shell.Current.GoToAsync("..");
-                }
-                else
-                {
-                    /*
-                     *  The segfault seems to happen as soon as the object of the next page instantiated,
-                     *  or right after the following function is called.
-                     */
-                    await Shell.Current.GoToAsync(
-                        $"{nameof(GameEndPage)}" +
-                        $"?{nameof(GameEndPage.QuizId)}={currentQuiz.ID}" +
-                        $"&{nameof(GameEndPage.CorrectCount)}={CorrectCount}"
-                    );
-                }
+                await GoToEnd();
                 return;
             }
-
             if (lastQuestionLoaded == questionNumber)
             {
                 // no need to update things
@@ -178,8 +157,8 @@ namespace QuizRandom.ViewModels
             if (SelectedAnswer == questions[questionOrder[questionNumber]].CorrectAnswer)
             {
                 // correct
-                CorrectCount += 1;
-                OnPropertyChanged(nameof(CorrectCount));
+                Score += 1;
+                OnPropertyChanged(nameof(Score));
                 
                 AnswerColor = (Color)Shell.Current.CurrentPage.Resources["CorrectColor"];
                 OnPropertyChanged(nameof(AnswerColor));
@@ -197,6 +176,17 @@ namespace QuizRandom.ViewModels
             // Load next question
             questionNumber += 1;
             await LoadQuestion();
+        }
+
+        private async Task GoToEnd()
+        {
+            // finished, go to end page
+            await Shell.Current.GoToAsync(
+                $"{nameof(EndPage)}" +
+                $"?{nameof(EndViewModel.ID)}={currentQuiz.ID}" +
+                $"&{nameof(EndViewModel.Score)}={Score}" +
+                $"&{nameof(EndViewModel.QuestionCount)}={currentQuiz.QuestionCount}"
+            );
         }
 
         private bool ShouldContinuePlaying()

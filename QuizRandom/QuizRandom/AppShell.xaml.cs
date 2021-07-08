@@ -8,10 +8,11 @@ namespace QuizRandom
         public AppShell()
         {
             InitializeComponent();
-            Routing.RegisterRoute(nameof(QuizInfoPage), typeof(QuizInfoPage));
-            Routing.RegisterRoute(nameof(QuizGenPage), typeof(QuizGenPage));
-            Routing.RegisterRoute(nameof(GamePlayPage), typeof(GamePlayPage));
-            Routing.RegisterRoute(nameof(GameEndPage), typeof(GameEndPage));
+            Routing.RegisterRoute(nameof(AboutPage), typeof(AboutPage));
+            Routing.RegisterRoute(nameof(NewAutoPage), typeof(NewAutoPage));
+            Routing.RegisterRoute(nameof(InfoPage), typeof(InfoPage));
+            Routing.RegisterRoute(nameof(PlayingPage), typeof(PlayingPage));
+            Routing.RegisterRoute(nameof(EndPage), typeof(EndPage));
         }
     }
 }
