@@ -17,6 +17,9 @@
     <Compile Update="Views\EndPage.xaml.cs">
       <DependentUpon>EndPage.xaml</DependentUpon>
     </Compile>
+    <Compile Update="Views\EditQuizPage.xaml.cs">
+      <DependentUpon>EditQuizPage.xaml</DependentUpon>
+    </Compile>
     <Compile Update="Views\PlayingPage.xaml.cs">
       <DependentUpon>PlayingPage.xaml</DependentUpon>
     </Compile>
@@ -32,6 +35,9 @@
     <EmbeddedResource Update="Views\AboutPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
+    <EmbeddedResource Update="Views\EditQuestionPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
     <EmbeddedResource Update="Views\MainPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
@@ -39,6 +45,9 @@
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Views\InfoPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\EditQuizPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Views\PlayingPage.xaml">

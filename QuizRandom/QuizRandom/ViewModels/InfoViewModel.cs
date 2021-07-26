@@ -9,36 +9,14 @@ using Xamarin.Forms;
 
 namespace QuizRandom.ViewModels
 {
-    [QueryProperty(nameof(ID), nameof(ID))]
+    [QueryProperty(nameof(QuizID), nameof(QuizID))]
     public class InfoViewModel : BaseViewModel
     {
         // Constructor
         public InfoViewModel()
         {
-            Debug.WriteLine($"{this.GetType()} constructor");
-
-            PlayQuizCommand = new Command(async () =>
-            {
-                await Shell.Current.GoToAsync($"{nameof(PlayingPage)}?{nameof(PlayingViewModel.ID)}={quiz.ID}");
-            });
-
-            DeleteQuizCommand = new Command(async () =>
-            {
-                bool answer = await Shell.Current.DisplayAlert(
-                    "Confirmation",
-                    "Are you sure you want to delete this quiz?",
-                    "Yes",
-                    "No"
-                );
-                if (answer == false)
-                {
-                    return;
-                }
-                // delete the quiz
-                await App.Database.DeleteItemAsync(ref quiz);
-                // go to MainPage
-                await Shell.Current.GoToAsync("..");
-            });
+            PlayQuizCommand = new Command(PlayQuiz);
+            DeleteQuizCommand = new Command(DeleteQuiz);
 
             Results = new List<QuizResult>();
         }
@@ -51,7 +29,11 @@ namespace QuizRandom.ViewModels
         public ICommand DeleteQuizCommand { get; set; }
 
         // Public properties
-        public int ID { set => LoadQuiz(Convert.ToInt32(value)); }
+        public string QuizID
+        {
+            set => LoadQuiz(Convert.ToInt32(value));
+        }
+
         public List<QuizResult> Results { get; set; }
         public string QuizName => quiz is null ? string.Empty : quiz.Name;
 
@@ -73,7 +55,7 @@ namespace QuizRandom.ViewModels
         }
 
         // Methods
-        public async void LoadQuiz(int id)
+        private async void LoadQuiz(int id)
         {
             // get quiz
             quiz = await App.Database.GetItemAsync<Quiz>(id);
@@ -98,6 +80,29 @@ namespace QuizRandom.ViewModels
             OnPropertyChanged(nameof(QuizName));
             OnPropertyChanged(nameof(QuizInfo));
             OnPropertyChanged(nameof(Results));
+        }
+
+        private async void PlayQuiz()
+        {
+            await Shell.Current.GoToAsync($"{nameof(PlayingPage)}?{nameof(PlayingViewModel.ID)}={quiz.ID}");
+        }
+
+        private async void DeleteQuiz()
+        {
+            bool answer = await Shell.Current.DisplayAlert(
+                "Confirmation",
+                "Are you sure you want to delete this quiz?",
+                "Yes",
+                "No"
+            );
+            if (answer == false)
+            {
+                return;
+            }
+            // delete the quiz
+            await App.Database.DeleteItemAsync(ref quiz);
+            // go to MainPage
+            await Shell.Current.GoToAsync("..");
         }
     }
 }

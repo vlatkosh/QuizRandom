@@ -15,8 +15,6 @@ namespace QuizRandom.ViewModels
         // Constructor
         public NewAutoViewModel()
         {
-            Debug.WriteLine($"{this.GetType()} constructor");
-
             restService = new RestService();
 
             categories = new Dictionary<string, string>()
@@ -128,7 +126,7 @@ namespace QuizRandom.ViewModels
             await App.Database.SaveItemAsync(ref quiz);
 
             // go to its quiz page
-            await Shell.Current.GoToAsync($"{nameof(InfoPage)}?{nameof(InfoViewModel.ID)}={quiz.ID}");
+            await Shell.Current.GoToAsync($"{nameof(InfoPage)}?{nameof(InfoViewModel.QuizID)}={quiz.ID}");
         }
 
         private string CreateURI()

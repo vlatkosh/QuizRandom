@@ -1,0 +1,70 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:QuizRandom.ViewModels"
+             x:Class="QuizRandom.Views.EditQuizPage">
+    <ContentPage.BindingContext>
+        <local:EditQuizViewModel />
+    </ContentPage.BindingContext>
+    <!--
+    Quiz name
+    Randomize questions (or not)
+    Question collection
+    - select => go to NewCustomQuestionPage
+    - swipe => delete
+    Add question button
+    Save button
+    -->
+    <ContentPage.Content>
+        <Grid Margin="{StaticResource PageMargin}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <Label Grid.Row="0"
+                   Grid.ColumnSpan="1"
+                   Text="Name:" />
+            <Entry Grid.Row="0" Grid.Column="1"
+                   Grid.ColumnSpan="2"
+                   Text="{Binding QuizName}" />
+            <Label Grid.Row="1"
+                   Grid.ColumnSpan="2"
+                   Text="Random order of questions" />
+            <CollectionView Grid.Row="2"
+                            Grid.ColumnSpan="3"
+                            SelectionMode="Single"
+                            ItemsSource="{Binding Questions}"
+                            SelectedItem="{Binding SelectedQuestion}"
+                            SelectionChangedCommand="{Binding EditQuestionCommand}">
+                <CollectionView.ItemsLayout>
+                    <LinearItemsLayout Orientation="Vertical"
+                                       ItemSpacing="5" />
+                </CollectionView.ItemsLayout>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Label Padding="10"
+                               Text="{Binding Question}"
+                               HorizontalTextAlignment="Center"
+                               VerticalTextAlignment="Center"
+                               LineBreakMode="TailTruncation" />
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+            <Button Grid.Row="3" Grid.Column="2"
+                    Text="New"
+                    Command="{Binding NewQuestionCommand}" />
+            <Button Grid.Row="4"
+                    Grid.ColumnSpan="3"
+                    Command="{Binding SaveQuizCommand}" />
+        </Grid>
+
+    </ContentPage.Content>
+</ContentPage>

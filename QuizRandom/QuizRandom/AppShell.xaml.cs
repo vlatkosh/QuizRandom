@@ -10,6 +10,8 @@ namespace QuizRandom
             InitializeComponent();
             Routing.RegisterRoute(nameof(AboutPage), typeof(AboutPage));
             Routing.RegisterRoute(nameof(NewAutoPage), typeof(NewAutoPage));
+            Routing.RegisterRoute(nameof(EditQuizPage), typeof(EditQuizPage));
+            Routing.RegisterRoute(nameof(EditQuestionPage), typeof(EditQuestionPage));
             Routing.RegisterRoute(nameof(InfoPage), typeof(InfoPage));
             Routing.RegisterRoute(nameof(PlayingPage), typeof(PlayingPage));
             Routing.RegisterRoute(nameof(EndPage), typeof(EndPage));

@@ -17,8 +17,6 @@ namespace QuizRandom.ViewModels
         // Constructor
         public PlayingViewModel()
         {
-            Debug.WriteLine($"{this.GetType()} constructor");
-
             quizLoaded = false;
 
             InterpretAnswerCommand = new Command(async() => await InterpretAnswer());
@@ -26,7 +24,7 @@ namespace QuizRandom.ViewModels
 
         // Private members
         private bool quizLoaded;
-        private Quiz currentQuiz;
+        private Quiz quiz;
 
         private List<QuizQuestion> questions;
         private List<int> questionOrder;
@@ -74,15 +72,15 @@ namespace QuizRandom.ViewModels
         public ICommand InterpretAnswerCommand { get; protected set; }
 
         // Methods
-        public async void LoadQuiz(int id)
+        private async void LoadQuiz(int id)
         {
             if (quizLoaded)
             {
                 return;
             }
-            currentQuiz = await App.Database.GetItemAsync<Quiz>(id);
+            quiz = await App.Database.GetItemAsync<Quiz>(id);
 
-            questions = JsonConvert.DeserializeObject<List<QuizQuestion>>(currentQuiz.QuestionDataRaw);
+            questions = JsonConvert.DeserializeObject<List<QuizQuestion>>(quiz.QuestionsSerialized);
 
             questionOrder = new List<int>(questions.Count);
             for (int i = 0; i < questions.Count; i++)
@@ -183,9 +181,9 @@ namespace QuizRandom.ViewModels
             // finished, go to end page
             await Shell.Current.GoToAsync(
                 $"{nameof(EndPage)}" +
-                $"?{nameof(EndViewModel.ID)}={currentQuiz.ID}" +
+                $"?{nameof(EndViewModel.ID)}={quiz.ID}" +
                 $"&{nameof(EndViewModel.Score)}={Score}" +
-                $"&{nameof(EndViewModel.QuestionCount)}={currentQuiz.QuestionCount}"
+                $"&{nameof(EndViewModel.QuestionCount)}={quiz.QuestionCount}"
             );
         }
 

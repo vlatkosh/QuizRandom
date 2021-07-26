@@ -13,8 +13,6 @@ namespace QuizRandom.ViewModels
         // Constructor
         public EndViewModel()
         {
-            Debug.WriteLine($"{this.GetType()} constructor");
-
             GoBackCommand = new Command(async () =>
             {
                 // go to quiz info page

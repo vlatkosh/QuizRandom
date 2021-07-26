@@ -14,8 +14,6 @@ namespace QuizRandom.ViewModels
         // Constructor
         public MainViewModel()
         {
-            Debug.WriteLine($"{this.GetType()} constructor");
-
             GoToAboutPageCommand = new Command(async () =>
             {
                 await Shell.Current.GoToAsync(nameof(AboutPage));
@@ -32,7 +30,7 @@ namespace QuizRandom.ViewModels
                 {
                     return;
                 }
-                await Shell.Current.GoToAsync($"{nameof(InfoPage)}?{nameof(InfoViewModel.ID)}={SelectedQuiz.ID}");
+                await Shell.Current.GoToAsync($"{nameof(InfoPage)}?{nameof(InfoViewModel.QuizID)}={SelectedQuiz.ID}");
             });
         }
 

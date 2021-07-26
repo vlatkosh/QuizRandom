@@ -9,26 +9,25 @@ namespace QuizRandom.Models
         // Constructors
         public Quiz()
         {
-
         }
 
         public Quiz(ref string data, int questionCount)
         {
-            QuestionDataRaw = data;
+            QuestionsSerialized = data;
             QuestionCount = questionCount;
         }
 
         // Private members
-        private string name = string.Empty;
+        private string name;
 
         // Public properties
-        public string QuestionDataRaw { get; set; } = string.Empty;
+        public string QuestionsSerialized { get; set; } = string.Empty;
         public int QuestionCount { get; set; } = 0;
         public DateTime CreationDate { get; set; } = DateTime.Now;
 
         public string Name
         {
-            get => name == string.Empty ? $"Quiz {ID + 1}" : name;
+            get => (name is null || name == string.Empty) ? (ID + 1).ToString() : name;
             set => name = value;
         }
     }
