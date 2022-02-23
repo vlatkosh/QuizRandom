@@ -125,6 +125,9 @@ namespace QuizRandom.ViewModels
 
             // create quiz, add it to database
             Quiz quiz = new Quiz(ref quizData, rootObject.Results.Count);
+            int totalQuizCount = await App.Database.GetItemCountAsync<Quiz>();
+            quiz.Name = $"Random Quiz {totalQuizCount + 1}";
+
             await App.Database.SaveItemAsync(ref quiz);
 
             // go to its quiz page

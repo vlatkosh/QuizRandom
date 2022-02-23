@@ -29,6 +29,13 @@ namespace QuizRandom.Services.Database
             }
         }
 
+        public Task<int> GetItemCountAsync<T>()
+            where T : DatabaseItem, new()
+        {
+            CreateTableIfNeeded<T>();
+            return database.Table<T>().CountAsync();
+        }
+
         public Task<List<T>> GetItemsAsync<T>()
             where T : DatabaseItem, new()
         {
