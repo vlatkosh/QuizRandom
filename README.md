@@ -1,6 +1,6 @@
 # QuizRandom
 
-Simple Quiz app made in Xamarin. Work in progress.
+Simple Quiz app made in Xamarin.
 
 You "generate" quizzes with custom parameters: number of questions, difficulty, and category. The app then uses the https://opentdb.com/ API to retrieve the quiz.
 
